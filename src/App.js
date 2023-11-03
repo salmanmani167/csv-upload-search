@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import FileUpload from "./FileUpload";
+import CsvList from "./CsvList";
+import CsvSearch from "./CsvSearch";
+import "bootstrap/dist/css/bootstrap.css";
 
 function App() {
+  const [csvData, setCsvData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+
+  const handleCsvUpload = (data) => {
+    setCsvData(data);
+    setFilteredData(data);
+  };
+
+  const handleSearch = (data) => {
+    setFilteredData(data);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>CSV Upload and Search</h1>
+      <button className="btn btn-info">Save</button>
+      <FileUpload onCsvUpload={handleCsvUpload} />
+      <CsvSearch data={csvData} onSearch={handleSearch} />
+      <CsvList data={filteredData} />
     </div>
   );
 }
